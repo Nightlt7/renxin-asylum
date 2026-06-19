@@ -2,6 +2,22 @@
 
 更新时间：2026-06-19
 
+## 2026-06-19 修复 GitHub Pages 图片加载问题
+
+- 目标：解决部署到 GitHub Pages 子路径后，游戏内图片无法显示的问题。
+- 根因：源码中图片路径硬编码为 `/assets/images/...`，在 `/renxin-asylum/` 子路径下浏览器会请求 `/assets/images/...`，导致 404。
+- 修改文件：
+  - 新增 `src/utils/imagePath.ts`：根据 `import.meta.env.BASE_URL` 生成图片路径，自动适配 `dev` 根路径与 GitHub Pages 子路径。
+  - `src/data/chapters.ts`：`img()` 辅助函数改用 `imagePath()`。
+  - `src/data/clues.ts`：所有线索图片路径改用 `imagePath()`。
+  - `src/data/puzzles.ts`：所有谜题图片与 overlay 图片路径改用 `imagePath()`。
+  - `.gitignore`：补充 `.vite/` 缓存目录，避免误提交 Vite 优化缓存。
+- 验证：
+  - `npm run build:deploy`：通过。
+  - 对线上站点运行 Playwright 网络检查：全部 9 个章节与双结局均无 4xx/5xx 资源请求。
+  - 直接 curl 线上图片地址返回 HTTP 200。
+- 当前状态：GitHub Pages 子路径下图片已正常加载，游戏可正常游玩。
+
 ## 2026-06-19 正式上线 GitHub Pages
 
 - 目标：将游戏保存到 GitHub 仓库并部署为可通过专属 URL 访问的静态站点。
