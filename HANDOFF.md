@@ -2,6 +2,23 @@
 
 更新时间：2026-06-19
 
+## 2026-06-19 正式上线 GitHub Pages
+
+- 目标：将游戏保存到 GitHub 仓库并部署为可通过专属 URL 访问的静态站点。
+- 操作记录：
+  - 初始化本地 Git 仓库（`git init`）。
+  - 创建 `.gitignore`，排除 `node_modules/`、`dist/`、`.env`、`.DS_Store` 及 `public/assets/images-original/` 等大文件。
+  - 配置 `vite.config.ts` 的 `base: '/renxin-asylum/'`，适配 GitHub Pages 项目站点路径。
+  - 创建 `.github/workflows/deploy.yml`，使用 `peaceiris/actions-gh-pages` 在每次 push 到 `main` 时自动构建并推送到 `gh-pages` 分支。
+  - 创建 GitHub 仓库 `Nightlt7/renxin-asylum` 并推送源码。
+  - 手动从 `dist/` 创建并推送 `gh-pages` 分支，然后通过 GitHub REST API 启用 Pages（source: `gh-pages` branch）。
+  - 验证站点可访问：curl 返回 HTTP 200。
+- 上线地址：
+  - **游戏网址**：https://nightlt7.github.io/renxin-asylum/
+  - **GitHub 仓库**：https://github.com/Nightlt7/renxin-asylum
+- 后续更新方式：在 `main` 分支修改代码并 `git push origin main`，GitHub Actions 会自动重新构建并部署。
+- 当前状态：游戏已成功上线，可通过专属 URL 直接访问。
+
 ## 2026-06-19 上线前最终调整：放大作者水印
 
 - 目标：根据作者反馈，将右下角水印字号调大，随后准备上线。
