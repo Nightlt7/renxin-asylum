@@ -2,6 +2,33 @@
 
 更新时间：2026-06-19
 
+## 2026-06-19 封装桌面与安卓应用
+
+- 目标：将 Web 游戏封装为可在 macOS、Windows、Android 上运行的本地应用，并生成安装包。
+- 修改文件：
+  - 新增 `electron/main.cjs`：Electron 主进程，加载打包后的 `dist/index.html`，窗口尺寸 1280×800。
+  - 新增 `vite.electron.config.ts`：Electron 打包使用 `base: './'`，适配 `file://` 协议。
+  - 新增 `capacitor.config.ts`：Capacitor 配置，webDir 指向 `dist`。
+  - `package.json`：
+    - 添加 `electron`、`electron-builder`、`@capacitor/core`、`@capacitor/cli`、`@capacitor/android` 依赖。
+    - 添加 `electron:pack`、`electron:pack:mac`、`electron:pack:win` 打包脚本。
+    - 添加 `build` 字段配置 electron-builder（dmg / nsis）。
+  - `.gitignore`：排除 `release/`、`android/` 等大型生成目录。
+- 生成的安装包（位于 `release/`）：
+  - macOS Apple Silicon：`仁馨精神病院-1.0.0-arm64.dmg`（约 248 MB）
+  - macOS Intel：`仁馨精神病院-1.0.0.dmg`（约 250 MB）
+  - Windows：`仁馨精神病院 Setup 1.0.0.exe`（约 227 MB）
+  - Android：`仁馨精神病院-1.0.0-android.apk`（约 134 MB）
+- 环境说明：
+  - 在本地 macOS 上安装 OpenJDK 21 与 Android SDK 后完成 Android APK 构建。
+  - macOS / Windows 安装包由 electron-builder 在本地直接构建完成。
+  - 安装包未进行代码签名，macOS 打开时可能提示“无法验证开发者”，需要在“系统设置 → 隐私与安全性”中允许；Windows 打开时可能提示 SmartScreen，点击“更多信息 → 仍要运行”。
+- 验证：
+  - `npm run electron:pack:mac`：成功生成 dmg。
+  - `npm run electron:pack:win`：成功生成 exe。
+  - `./gradlew assembleDebug`：成功生成 APK。
+- 当前状态：macOS、Windows、Android 三端安装包均已生成，封装完成。
+
 ## 2026-06-19 修复 GitHub Pages 图片加载问题
 
 - 目标：解决部署到 GitHub Pages 子路径后，游戏内图片无法显示的问题。
