@@ -1,6 +1,7 @@
 import type { Chapter } from '../types/game';
+import { imagePath } from '../utils/imagePath';
 
-const img = (path: string) => `/assets/images/${path}`;
+const img = (path: string) => imagePath(path);
 
 const range = (prefix: string, start: number, end: number): string[] =>
   Array.from({ length: end - start + 1 }, (_, i) => img(`${prefix}_p${start + i}.png`));

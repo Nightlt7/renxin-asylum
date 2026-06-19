@@ -1,3 +1,4 @@
+import { imagePath } from '../utils/imagePath';
 import type { Puzzle } from '../types/game';
 import { patients } from './truth';
 
@@ -95,8 +96,8 @@ export const puzzles: Puzzle[] = [
       '解密卡叠在照片上后，冰箱位置出现高亮。',
       '隐藏线索是“冰箱里冰冻的盒子装着大脑组织”——这正是袁枝被摘除、需要抗排异药维持的大脑组织。',
     ],
-    image: '/assets/images/5-纵火案卷宗袋/5-纵火案卷子袋-陈旧的病房照片_p7.png',
-    overlayImage: '/assets/images/5-纵火案卷宗袋/5-纵火案卷子袋-病房照片解密卡.jpg',
+    image: imagePath('5-纵火案卷宗袋/5-纵火案卷子袋-陈旧的病房照片_p7.png'),
+    overlayImage: imagePath('5-纵火案卷宗袋/5-纵火案卷子袋-病房照片解密卡.jpg'),
     targetRect: { x: 0.62, y: 0.42, w: 0.28, h: 0.52 },
     hiddenClue: '冰箱里冰冻的盒子装着大脑组织',
   },
@@ -118,7 +119,7 @@ export const puzzles: Puzzle[] = [
       '记录中“2017.06.20 09:05 · 崔 / 4F 取消”是异常点。',
       '崔哲金作为研究员，突然被取消 4 楼权限，说明曹怀敬在排挤他、掩盖实验。',
     ],
-    image: '/assets/images/5-纵火案卷宗袋/5-纵火案卷子袋-电梯ic卡记录碎片拼图纸_p2.png',
+    image: imagePath('5-纵火案卷宗袋/5-纵火案卷子袋-电梯ic卡记录碎片拼图纸_p2.png'),
     fragments: [
       '2016.04.20 13:50 · 刘 / 初始授权',
       '2016.05.27 03:59 · 王 / 权限调整',
@@ -137,7 +138,7 @@ export const puzzles: Puzzle[] = [
     title: '平面图上的关键地点',
     description: '在零号研究所平面图上找出与案件密切相关的三处地点。',
     answer: '完成',
-    image: '/assets/images/4-零号研究所平面图.jpg',
+    image: imagePath('4-零号研究所平面图.jpg'),
     targets: [
       { id: 'rooftop', x: 74, y: 82, w: 20, h: 12, label: '天台广告牌' },
       { id: 'meeting', x: 24, y: 84, w: 22, h: 12, label: '501 会议室' },
@@ -161,7 +162,7 @@ export const puzzles: Puzzle[] = [
     title: '拼回报纸碎片',
     description: '香北都市报的报道被撕成了碎片，先把它拼回原样。',
     answer: '完成',
-    image: '/assets/images/2-香北都市案纵火案新闻报道.jpg',
+    image: imagePath('2-香北都市案纵火案新闻报道.jpg'),
     grid: { rows: 3, cols: 3 },
     hints: [
       '观察报纸的标题、图片边缘和文字栏，确定相邻碎片。',
@@ -251,7 +252,7 @@ export const puzzles: Puzzle[] = [
       '按行将字符转成点和划，再对照摩尔斯电码表。',
       '解出 304 fridge brain：房间号 304、家具 fridge、器官 brain。',
     ],
-    image: '/assets/images/7-《希波克拉底誓言》谜底明信片_p2.png',
+    image: imagePath('7-《希波克拉底誓言》谜底明信片_p2.png'),
   },
   {
     id: 'p_illness',

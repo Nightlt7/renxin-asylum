@@ -1,3 +1,4 @@
+import { imagePath } from '../utils/imagePath';
 import type { Clue } from '../types/game';
 
 export const clues: Clue[] = [
@@ -9,7 +10,7 @@ export const clues: Clue[] = [
     description:
       '叶臻受聘为香北市公安局仁馨精神病院遗留问题医疗支援专家，聘期 3 天（2018 年 9 月 15-17 日），进入零号研究所开展患者建档工作。',
     tags: ['物品', '身份'],
-    image: '/assets/images/1-记忆引入_p1.png',
+    image: imagePath('1-记忆引入_p1.png'),
   },
   {
     id: 'clue_identity',
@@ -35,7 +36,7 @@ export const clues: Clue[] = [
     description:
       '2017 年 11 月 6 日，零号研究所二楼、五楼起火；5 人死亡，崔哲金坠楼。4 名死者端坐原位，未逃跑未求救，会议室门开着。',
     tags: ['案件', '新闻'],
-    image: '/assets/images/2-香北都市案纵火案新闻报道.jpg',
+    image: imagePath('2-香北都市案纵火案新闻报道.jpg'),
   },
   {
     id: 'clue_four_dead',
@@ -68,7 +69,7 @@ export const clues: Clue[] = [
     source: '第 2 章《手机》',
     description: '崔哲金在案发当天早上 9:15 给叶臻留下未接来电和语音留言。',
     tags: ['人物', '案件'],
-    image: '/assets/images/3-叶臻手机信息_p11.png',
+    image: imagePath('3-叶臻手机信息_p11.png'),
   },
   // 平面图与卷宗袋
   {
@@ -77,7 +78,7 @@ export const clues: Clue[] = [
     source: '第 3 章《平面图与卷宗袋》',
     description: '五层砖混结构独立建筑，1F 大厅、2F 手术室与档案室、3F 病房与活动室、4F 疗养病房、5F 会议室与院长办公室、天台广告牌与水塔。',
     tags: ['地点', '物品'],
-    image: '/assets/images/4-零号研究所平面图.jpg',
+    image: imagePath('4-零号研究所平面图.jpg'),
   },
   {
     id: 'clue_rooftop_wire',
@@ -86,7 +87,7 @@ export const clues: Clue[] = [
     description:
       '天台广告牌铁架边缘发现一根支出的尖锐铁丝，已弯折，锈迹斑斑。崔哲金坠楼时左臂被划伤，证明他坠楼前曾挣扎抓握，不是自杀。',
     tags: ['地点', '异常'],
-    image: '/assets/images/5-纵火案卷宗袋/5-纵火案卷子袋-警方调查记录簿_p3.png',
+    image: imagePath('5-纵火案卷宗袋/5-纵火案卷子袋-警方调查记录簿_p3.png'),
   },
   {
     id: 'clue_meeting_room_card',
@@ -95,7 +96,7 @@ export const clues: Clue[] = [
     description:
       '501 会议室投影仪播放器中剥离出一张游戏机视频存储卡，内容已无法复原。结合冯思雅证言，有人用游戏机录下催眠视频替换了晨会录像。',
     tags: ['物品', '催眠', '案件'],
-    image: '/assets/images/5-纵火案卷宗袋/5-纵火案卷子袋-警方调查记录簿_p5.png',
+    image: imagePath('5-纵火案卷宗袋/5-纵火案卷子袋-警方调查记录簿_p5.png'),
   },
   {
     id: 'clue_cao_notebook',
@@ -104,7 +105,7 @@ export const clues: Clue[] = [
     description:
       '记录曹怀敬“高功能脑区”理论、2013 年患儿实验、催眠机制发现、造神野心、崔哲金转变与被打压全过程。结局中袁枝将此本归还给玩家。',
     tags: ['人物', '动机', '机制'],
-    image: '/assets/images/5-纵火案卷宗袋/5-纵火案卷子袋-曹怀敬的原始记录本_p1.png',
+    image: imagePath('5-纵火案卷宗袋/5-纵火案卷子袋-曹怀敬的原始记录本_p1.png'),
   },
   {
     id: 'clue_anti_rejection',
@@ -113,7 +114,7 @@ export const clues: Clue[] = [
     description:
       '48 小时一次口服，主要成分含苯二氮卓类镇静剂、利他林呼吸抑制浓液；适用于脑组织移植术患者，需与自身脑组织提取物（0.05%）调配，终身服用。',
     tags: ['机制', '物品'],
-    image: '/assets/images/5-纵火案卷宗袋/5-纵火案卷子袋-警方调查记录簿_p12.png',
+    image: imagePath('5-纵火案卷宗袋/5-纵火案卷子袋-警方调查记录簿_p12.png'),
   },
   {
     id: 'clue_game_console_rank',
@@ -122,7 +123,7 @@ export const clues: Clue[] = [
     description:
       '2017 年 7 月 11 日，排名第一“未命名”打出 1293210 分。当时只有袁枝仍住在 3 楼，证明他术后已不再是智障。',
     tags: ['人物', '异常'],
-    image: '/assets/images/5-纵火案卷宗袋/5-纵火案卷子袋-警方调查记录簿_p16.png',
+    image: imagePath('5-纵火案卷宗袋/5-纵火案卷子袋-警方调查记录簿_p16.png'),
   },
   {
     id: 'clue_photo_decrypt',
@@ -130,7 +131,7 @@ export const clues: Clue[] = [
     source: '第 3 章《卷宗袋》',
     description: '箭头朝上的挖孔遮罩，叠在病房照片上可读取隐藏信息。',
     tags: ['物品', '谜题'],
-    image: '/assets/images/5-纵火案卷宗袋/5-纵火案卷子袋-病房照片解密卡.jpg',
+    image: imagePath('5-纵火案卷宗袋/5-纵火案卷子袋-病房照片解密卡.jpg'),
   },
   // 来信与明信片
   {
@@ -140,7 +141,7 @@ export const clues: Clue[] = [
     description:
       '2017 年 11 月 5 日寄出，内含教材残页，涵盖精神损伤、催眠、刻板行为、躁狂症、妄想性障碍、癔症性漫游症、黑暗恐惧、神经性厌食、PTSD、智力迟滞等医学知识。',
     tags: ['人物', '物品', '机制'],
-    image: '/assets/images/6-崔哲金的神秘来信_p2.png',
+    image: imagePath('6-崔哲金的神秘来信_p2.png'),
   },
   {
     id: 'clue_postcard',
@@ -149,7 +150,7 @@ export const clues: Clue[] = [
     description:
       '正面红字“记住，疼痛可以避免被催眠”；背面是打乱的誓言文字与摩尔斯电码谜题，可解出“304 fridge brain”。',
     tags: ['物品', '谜题', '机制'],
-    image: '/assets/images/7-《希波克拉底誓言》谜底明信片_p2.png',
+    image: imagePath('7-《希波克拉底誓言》谜底明信片_p2.png'),
   },
   {
     id: 'clue_morse_table',
@@ -157,7 +158,7 @@ export const clues: Clue[] = [
     source: '警方调查记录簿',
     description: '用来解开明信片背面电码。',
     tags: ['物品', '谜题'],
-    image: '/assets/images/5-纵火案卷宗袋/5-纵火案卷子袋-警方调查记录簿_p24.png',
+    image: imagePath('5-纵火案卷宗袋/5-纵火案卷子袋-警方调查记录簿_p24.png'),
   },
   // 病患建档
   {
@@ -167,7 +168,7 @@ export const clues: Clue[] = [
     description:
       '叶臻对 7 名生还患者的访谈记录，包含各人症状、高功能区、案发当晚行动与证言。',
     tags: ['人物', '物品'],
-    image: '/assets/images/9-病患建档记录本_p1.png',
+    image: imagePath('9-病患建档记录本_p1.png'),
   },
   {
     id: 'clue_hexiuwen_record',
@@ -176,7 +177,7 @@ export const clues: Clue[] = [
     description:
       '何秀文曾能听声辨人，记录每个人夜间起夜次数。7 月 4 日手术后高功能区被剥离，记录开始混乱；但 11 月 5 日晚仍可以确定有三人起夜。',
     tags: ['人物', '时间线'],
-    image: '/assets/images/9-病患建档记录本_p4.png',
+    image: imagePath('9-病患建档记录本_p4.png'),
   },
   {
     id: 'clue_yuanzhi_locked',
@@ -185,7 +186,7 @@ export const clues: Clue[] = [
     description:
       '袁枝 2017 年 11 月 5 日夜-11 月 7 晨被关 309 禁闭室，主管刘美汐，携带便携式掌上游戏机（活动室借出）。',
     tags: ['人物', '地点'],
-    image: '/assets/images/5-纵火案卷宗袋/5-纵火案卷子袋-警方调查记录簿_p11.png',
+    image: imagePath('5-纵火案卷宗袋/5-纵火案卷子袋-警方调查记录簿_p11.png'),
   },
   // 访谈补充（通过角色对话解锁）
   {
