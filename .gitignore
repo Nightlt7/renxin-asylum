@@ -40,3 +40,9 @@ coverage/
 
 # Original image backup (large, not needed in repo)
 public/assets/images-original/
+
+# Packaged install files (large binaries)
+release/
+
+# Capacitor native project (can be regenerated with npx cap add android)
+android/
