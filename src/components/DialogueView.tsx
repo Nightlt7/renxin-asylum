@@ -45,7 +45,7 @@ export default function DialogueView({
     viewedDialogueTopicIds,
     viewDialogueTopic,
   } = useGameStore();
-  const { playClueCollect, playClick, playAdvance } = useAudio();
+  const { playClueCollect, playClick, playAdvance, playTypeTick } = useAudio();
 
   const [activeTopicId, setActiveTopicId] = useState<string | null>(null);
   // displayedLines 是已经完整显示过的整句
@@ -340,7 +340,7 @@ export default function DialogueView({
                           }`}
                         >
                           {currentLine.speaker === 'npc' && isTyping ? (
-                            <TypewriterText text={currentLine.text} speed={28} onDone={() => setIsTyping(false)} />
+                            <TypewriterText text={currentLine.text} speed={24} soundEnabled onTick={playTypeTick} skippable onDone={() => setIsTyping(false)} />
                           ) : (
                             currentLine.text
                           )}
@@ -377,7 +377,7 @@ export default function DialogueView({
                     <button
                       onClick={handleAdvance}
                       disabled={!currentLine && displayedLines.length === activeTopic.lines.length}
-                      className="flex-1 rounded bg-asylum-accent py-2 text-sm font-medium text-white hover:bg-red-800 disabled:cursor-not-allowed disabled:opacity-50"
+                      className="btn-primary text-sm flex-1"
                     >
                       {isTyping ? '跳过打字' : currentLine ? '继续' : '结束对话'}
                     </button>

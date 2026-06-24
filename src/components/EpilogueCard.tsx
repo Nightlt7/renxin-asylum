@@ -70,7 +70,7 @@ export default function EpilogueCard({ onClose, onContinue }: EpilogueCardProps)
         {onContinue && (
           <button
             onClick={onContinue}
-            className="flex items-center gap-1 rounded bg-asylum-accent px-4 py-2 text-xs font-medium text-white hover:bg-red-800"
+            className="btn-primary text-xs"
           >
             查看真相解析
             <ChevronRight size={14} />

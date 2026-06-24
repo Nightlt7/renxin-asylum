@@ -79,7 +79,7 @@ export default function PlayerIdentityCard({ open, onClose }: PlayerIdentityCard
 
               <button
                 onClick={onClose}
-                className="mt-5 w-full rounded bg-asylum-accent py-2 text-sm font-medium text-white hover:bg-red-800"
+                className="btn-primary mt-5 w-full text-sm"
               >
                 开始调查
               </button>

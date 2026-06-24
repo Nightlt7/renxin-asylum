@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
 interface AmbientBackgroundProps {
@@ -16,8 +17,37 @@ const palettes: Record<string, string[]> = {
   ending: ['#1a1a1a', '#4a3a1a'],
 };
 
+interface Particle {
+  id: number;
+  x: number;
+  y: number;
+  size: number;
+  duration: number;
+  delay: number;
+  opacity: number;
+  color: string;
+}
+
+function generateParticles(count: number, colors: string[]): Particle[] {
+  return Array.from({ length: count }, (_, i) => ({
+    id: i,
+    x: Math.random() * 100,
+    y: Math.random() * 100,
+    size: 1 + Math.random() * 2,
+    duration: 8 + Math.random() * 16,
+    delay: Math.random() * 10,
+    opacity: 0.15 + Math.random() * 0.35,
+    color: colors[Math.floor(Math.random() * colors.length)],
+  }));
+}
+
 export default function AmbientBackground({ chapterId = 'intro' }: AmbientBackgroundProps) {
   const colors = palettes[chapterId] || palettes.intro;
+  const [particles, setParticles] = useState<Particle[]>(() => generateParticles(18, colors));
+
+  useEffect(() => {
+    setParticles(generateParticles(18, colors));
+  }, [chapterId]);
 
   return (
     <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
@@ -50,6 +80,33 @@ export default function AmbientBackground({ chapterId = 'intro' }: AmbientBackgr
           }}
           transition={{
             duration: 12 + i * 4,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
+        />
+      ))}
+
+      {/* 微型浮动光点粒子 */}
+      {particles.map((p) => (
+        <motion.div
+          key={p.id}
+          className="absolute rounded-full"
+          style={{
+            width: p.size,
+            height: p.size,
+            backgroundColor: p.color,
+            left: `${p.x}%`,
+            top: `${p.y}%`,
+            opacity: p.opacity,
+          }}
+          animate={{
+            x: [0, 15 + Math.random() * 25, -10 - Math.random() * 20, 0],
+            y: [0, -15 - Math.random() * 20, 10 + Math.random() * 20, 0],
+            opacity: [p.opacity, p.opacity * 1.8, p.opacity * 0.6, p.opacity],
+          }}
+          transition={{
+            duration: p.duration,
+            delay: p.delay,
             repeat: Infinity,
             ease: 'easeInOut',
           }}

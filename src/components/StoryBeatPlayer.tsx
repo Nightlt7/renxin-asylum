@@ -2,6 +2,7 @@ import { useState, useCallback } from 'react';
 import { ChevronRight, SkipForward } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { characterById } from '../data/characters';
+import { useAudio } from '../hooks/useAudio';
 import TypewriterText from './TypewriterText';
 import CharacterAvatar from './CharacterAvatar';
 import type { StoryBeat } from '../types/game';
@@ -20,6 +21,7 @@ const beatVariants = {
 
 export default function StoryBeatPlayer({ beats, onComplete, onSkip }: StoryBeatPlayerProps) {
   const [index, setIndex] = useState(0);
+  const { playTypeTick } = useAudio();
 
   const current = beats[index];
   const isLast = index === beats.length - 1;
@@ -71,7 +73,15 @@ export default function StoryBeatPlayer({ beats, onComplete, onSkip }: StoryBeat
             `}
           >
             {current.type === 'flashback' && (
-              <div className="absolute inset-0 rounded-xl bg-[radial-gradient(circle_at_center,transparent_30%,rgba(0,0,0,0.5)_100%)] pointer-events-none" />
+              <>
+                {/* 回忆暗角 + 脉冲 */}
+                <div className="absolute inset-0 rounded-xl bg-[radial-gradient(circle_at_center,transparent_30%,rgba(0,0,0,0.5)_100%)] pointer-events-none" />
+                <motion.div
+                  className="absolute inset-0 rounded-xl pointer-events-none"
+                  animate={{ boxShadow: ['inset 0 0 20px rgba(180,150,80,0.05)', 'inset 0 0 40px rgba(180,150,80,0.12)', 'inset 0 0 20px rgba(180,150,80,0.05)'] }}
+                  transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+                />
+              </>
             )}
 
             {current.type === 'dialogue' && char && (
@@ -91,7 +101,7 @@ export default function StoryBeatPlayer({ beats, onComplete, onSkip }: StoryBeat
               {current.type === 'dialogue' ? (
                 current.content
               ) : (
-                <TypewriterText text={current.content} speed={26} />
+                <TypewriterText text={current.content} speed={22} soundEnabled onTick={playTypeTick} skippable />
               )}
             </div>
 
@@ -117,7 +127,7 @@ export default function StoryBeatPlayer({ beats, onComplete, onSkip }: StoryBeat
             </button>
             <button
               onClick={handleNext}
-              className="flex items-center gap-2 rounded bg-asylum-accent px-5 py-2 text-sm font-medium text-white hover:bg-red-800"
+              className="btn-primary text-sm"
             >
               {isLast ? '进入调查' : '继续'}
               <ChevronRight size={16} />

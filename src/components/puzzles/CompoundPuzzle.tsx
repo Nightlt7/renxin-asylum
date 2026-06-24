@@ -54,7 +54,7 @@ export default function CompoundPuzzle({ puzzle, onSolve }: Props) {
           <SolutionNotes notes={current.solutionNotes} />
           <button
             onClick={handleContinue}
-            className="mt-4 flex items-center gap-1 rounded bg-asylum-accent px-4 py-1.5 text-sm text-white hover:bg-red-800"
+            className="btn-primary mt-4 text-sm"
           >
             下一步
             <ChevronRight size={16} />

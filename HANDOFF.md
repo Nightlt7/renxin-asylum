@@ -1,6 +1,54 @@
 # 仁馨精神病院游戏交接
 
-更新时间：2026-06-19
+更新时间：2026-06-24
+
+## 2026-06-24 深度优化版（仁馨精神病院优化版）
+
+### 界面视觉升级
+- **页头重设计**：案卷档案夹风格，红十字图标 + 案卷编号 + 暗红渐变装饰线
+- **统一按钮系统**：`btn-primary`（暗红渐变）/ `btn-secondary`（暗灰）/ `btn-ghost`（透明）三级
+- **统一输入框**：`input-asylum` 暗底聚焦红光
+- **统一卡片样式**：`card-asylum` 渐变背景 + 柔和边框 + 深阴影
+- **纸张纹理**：`.paper-texture` SVG噪点纹理
+- **章节标题**：红色标签式编号 + 装饰菱形分隔线
+- **叙事文本**：「案卷备注」标签 + 左红条 + 内阴影
+- **章节菜单**：「卷宗目录」红色指示点
+
+### 视觉效果增强
+- **CRT扫描线**：opacity 0.06→0.10，随机闪烁(0.5-3s)，RGB色散边缘
+- **胶片颗粒**：`FilmGrain.tsx` SVG fractalNoise全屏叠加
+- **浮动粒子**：`AmbientBackground` 18个微型光点随机飘动
+- **Canvas动态背景**：`DynamicBackground.tsx` 三种场景模式
+  - 雨夜效果（序章/第2章）：雨滴 + 闪电
+  - 走廊灯光（第3章/第5章）：荧光灯闪烁
+  - 真相揭示（第6章/第7章）：暗红脉冲 + 金色粒子
+- **章节过渡**：统一深色底 `#0f1115` + 各章独立图标/强调色
+
+### 动画系统
+- **动画常量**：`src/utils/animation.ts` 统一弹簧参数和时长
+- **谜题庆祝**：轻量12粒金色纸屑（canvas-confetti）
+- **章节错落入场**：staggerChildren + fadeUpItem
+- **线索板连线**：SVG stroke-dashoffset 绘制动画 + 光晕
+- **按钮微交互**：whileHover/whileTap 全局应用
+- **打字机可跳过**：点击跳过 + 音效支持
+
+### 音效扩展
+- **打字机音效**：`playTypeTick()` 随机频率机械键盘click
+- **环境音效**：`playAmbient()` rain(粉噪)/heartbeat(脉冲)/tension(drone)
+
+### 谜题优化（基于原始剧本杀研读）
+- **p_intro**：manual→quiz，"叶臻的真名是什么？"→崔诣
+- **p_phone**：manual→quiz，"刘师姐的遭遇说明什么异常？"→催眠
+- **p_jigsaw_news 删除**：拼图无推理价值，新闻章改为直接问答
+- **PhotoDecrypt 简化**：拖拽解密卡→点击按钮揭示，减少操作复杂度
+
+### 新增文件
+- `src/utils/animation.ts`
+- `src/components/effects/FilmGrain.tsx`
+- `src/components/effects/DynamicBackground.tsx`
+
+### 新增依赖
+- `canvas-confetti` + `@types/canvas-confetti`
 
 ## 2026-06-19 封装桌面与安卓应用
 

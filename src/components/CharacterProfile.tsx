@@ -141,7 +141,7 @@ export default function CharacterProfile({
                 {!isPlayer && onOpenDialogue && (
                   <button
                     onClick={() => { onClose(); onOpenDialogue(); }}
-                    className="flex flex-1 items-center justify-center gap-2 rounded bg-asylum-accent py-2 text-sm font-medium text-white hover:bg-red-800"
+                    className="btn-primary text-sm flex-1 justify-center"
                   >
                     <MessageCircle size={16} /> 访谈 {character.name}
                   </button>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { X, Tag, LayoutGrid, List, Sparkles } from 'lucide-react';
+import { X, BookOpen, LayoutGrid, List, Sparkles } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { clues } from '../data/clues';
 import { findCharacterInText } from '../data/characters';
@@ -43,30 +43,41 @@ export default function ClueNotebook({ open, onClose }: ClueNotebookProps) {
             initial={{ x: '100%' }}
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
-            className="fixed right-0 top-0 z-50 flex h-full w-full max-w-4xl flex-col bg-asylum-800 shadow-2xl"
+            className="fixed right-0 top-0 z-50 flex h-full w-full max-w-4xl flex-col shadow-2xl"
+            style={{
+              background: 'linear-gradient(180deg, #181b21 0%, #15171d 100%)',
+              borderLeft: '1px solid rgba(139,30,30,0.12)',
+            }}
           >
-            <div className="flex items-center justify-between border-b border-asylum-700 p-4">
-              <div className="flex items-center gap-2 font-serif text-lg">
-                <Tag size={20} />
-                线索本（{collected.length}/{clues.length}）
+            {/* 头部 */}
+            <div
+              className="flex items-center justify-between px-4 py-3.5"
+              style={{ borderBottom: '1px solid rgba(46,52,61,0.5)' }}
+            >
+              <div className="flex items-center gap-2.5">
+                <BookOpen size={17} className="text-asylum-accent/60" />
+                <span className="font-serif text-base tracking-wide">线索本</span>
+                <span className="text-xs text-asylum-muted">
+                  {collected.length}/{clues.length}
+                </span>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1">
                 <button
                   onClick={() => setView('board')}
-                  className={`rounded p-1.5 ${view === 'board' ? 'bg-asylum-600 text-white' : 'text-asylum-muted hover:bg-asylum-700'}`}
+                  className={`btn-ghost rounded-md p-1.5 !text-xs ${view === 'board' ? '!text-asylum-paper !border-asylum-accent/15 !bg-asylum-accent/5' : ''}`}
                   title="推理墙"
                 >
-                  <LayoutGrid size={18} />
+                  <LayoutGrid size={16} />
                 </button>
                 <button
                   onClick={() => setView('list')}
-                  className={`rounded p-1.5 ${view === 'list' ? 'bg-asylum-600 text-white' : 'text-asylum-muted hover:bg-asylum-700'}`}
+                  className={`btn-ghost rounded-md p-1.5 !text-xs ${view === 'list' ? '!text-asylum-paper !border-asylum-accent/15 !bg-asylum-accent/5' : ''}`}
                   title="列表"
                 >
-                  <List size={18} />
+                  <List size={16} />
                 </button>
-                <button onClick={onClose} className="rounded p-1 hover:bg-asylum-700">
-                  <X size={20} />
+                <button onClick={onClose} className="btn-ghost rounded-md p-1.5">
+                  <X size={16} />
                 </button>
               </div>
             </div>

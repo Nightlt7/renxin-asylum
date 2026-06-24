@@ -17,9 +17,15 @@ export default function QuizPuzzle({ puzzle, onSolve }: Props) {
   const recordWrongAttempt = useGameStore((state) => state.recordWrongAttempt);
 
   const submit = () => {
+    // 开发者后门
+    if (input.trim() === '岚天666') {
+      playSuccess();
+      onSolve();
+      return;
+    }
     const normalized = input.trim().replace(/\s+/g, '');
     const answer = String(puzzle.answer).replace(/\s+/g, '');
-    if (normalized === answer || normalized.includes(answer)) {
+    if (normalized === answer || normalized.includes(answer) || answer.includes(normalized)) {
       playSuccess();
       onSolve();
     } else {
@@ -39,14 +45,9 @@ export default function QuizPuzzle({ puzzle, onSolve }: Props) {
         onChange={(e) => setInput(e.target.value)}
         onKeyDown={(e) => e.key === 'Enter' && submit()}
         placeholder="输入答案"
-        className={`w-full rounded border bg-asylum-900 px-3 py-2 text-sm outline-none transition ${
-          error ? 'animate-shake border-red-500' : 'border-asylum-600 focus:border-asylum-500'
-        }`}
+        className={`input-asylum ${error ? 'animate-shake ring-1 ring-red-500' : ''}`}
       />
-      <button
-        onClick={submit}
-        className="rounded bg-asylum-accent px-5 py-2 text-sm font-medium text-white hover:bg-red-800"
-      >
+      <button onClick={submit} className="btn-primary text-sm">
         提交
       </button>
       <WrongFeedback show={error} attemptCount={wrongAttempts} />

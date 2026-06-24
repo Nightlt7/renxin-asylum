@@ -129,7 +129,10 @@ export const useGameStore = create<GameState & GameActions>()(
             ? state.answeredAdvanceQuestionIds
             : [...state.answeredAdvanceQuestionIds, chapterId],
         })),
-      resetGame: () => set({ ...initialState }),
+      resetGame: () => {
+        localStorage.removeItem('renxin-clue-board');
+        set({ ...initialState });
+      },
     }),
     {
       name: 'renxin-game-storage',

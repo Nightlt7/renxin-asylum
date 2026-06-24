@@ -202,6 +202,15 @@ export default function ClueBoard({ collected, newClueIds = [], onCharacterClick
 
   const boardWidth = GROUPS.length * COL_WIDTH + MARGIN * 2;
 
+  // 关联线索智能检测：同标签>=3条线索时，这些线索互相脉冲提示
+  const relatedClueIds = new Set<string>();
+  const tagCounts = new Map<string, string[]>();
+  collected.forEach((c) => c.tags.forEach((t) => {
+    if (!tagCounts.has(t)) tagCounts.set(t, []);
+    tagCounts.get(t)!.push(c.id);
+  }));
+  tagCounts.forEach((ids) => { if (ids.length >= 3) ids.forEach((id) => relatedClueIds.add(id)); });
+
   return (
     <div className="flex h-full flex-col">
       {/* 工具栏 */}
@@ -250,25 +259,55 @@ export default function ClueBoard({ collected, newClueIds = [], onCharacterClick
             </div>
           ))}
 
-          {/* 连线 SVG */}
+          {/* 连线 SVG — 带绘制动画和光晕 */}
           {state.connections.length > 0 && (
             <svg className="pointer-events-none absolute inset-0 z-0 h-full w-full">
+              <defs>
+                <filter id="line-glow">
+                  <feGaussianBlur stdDeviation="1.5" result="blur" />
+                  <feMerge>
+                    <feMergeNode in="blur" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+              </defs>
               {state.connections.map(([a, b], idx) => {
                 const ca = centers[a];
                 const cb = centers[b];
                 if (!ca || !cb) return null;
+                const length = Math.sqrt(
+                  Math.pow(cb.cx - ca.cx, 2) + Math.pow(cb.cy - ca.cy, 2)
+                );
                 return (
-                  <line
-                    key={`${a}-${b}-${idx}`}
-                    x1={ca.cx}
-                    y1={ca.cy}
-                    x2={cb.cx}
-                    y2={cb.cy}
-                    stroke="#8b1e1e"
-                    strokeWidth={2}
-                    strokeDasharray="4 4"
-                    opacity={0.8}
-                  />
+                  <g key={`${a}-${b}-${idx}`}>
+                    {/* 光晕层 — 脉冲 */}
+                    <line
+                      x1={ca.cx}
+                      y1={ca.cy}
+                      x2={cb.cx}
+                      y2={cb.cy}
+                      stroke="#8b1e1e"
+                      strokeWidth={6}
+                      opacity={0.12}
+                      filter="url(#line-glow)"
+                      style={{ animation: 'pulse-glow 3s ease-in-out infinite' }}
+                    />
+                    {/* 主线 — 带动画绘制 */}
+                    <line
+                      x1={ca.cx}
+                      y1={ca.cy}
+                      x2={cb.cx}
+                      y2={cb.cy}
+                      stroke="#8b1e1e"
+                      strokeWidth={2}
+                      strokeDasharray={`${length}`}
+                      strokeDashoffset={`${length}`}
+                      opacity={0.8}
+                      style={{
+                        animation: 'draw-line 0.6s ease-out forwards',
+                      }}
+                    />
+                  </g>
                 );
               })}
             </svg>
@@ -300,6 +339,7 @@ export default function ClueBoard({ collected, newClueIds = [], onCharacterClick
             if (!pos) return null;
             const isSelected = selectedId === clue.id;
             const isNew = newClueIds.includes(clue.id);
+            const isRelated = relatedClueIds.has(clue.id);
             const matchedChar = findCharacterInText(`${clue.title} ${clue.source} ${clue.description}`);
             return (
               <motion.div
@@ -327,7 +367,9 @@ export default function ClueBoard({ collected, newClueIds = [], onCharacterClick
                   isSelected
                     ? 'border-asylum-accent ring-2 ring-asylum-accent/50'
                     : isNew
-                    ? 'border-green-600 shadow-[0_0_14px_rgba(22,163,74,0.18)]'
+                    ? 'border-asylum-success shadow-[0_0_14px_rgba(74,103,65,0.25)]'
+                    : isRelated
+                    ? 'border-asylum-accent/30 animate-pulse-glow'
                     : 'border-asylum-600'
                 }`}
               >
@@ -370,9 +412,13 @@ export default function ClueBoard({ collected, newClueIds = [], onCharacterClick
                   )}
                   <div className="flex items-center gap-1">
                     {isNew && (
-                      <span className="flex items-center gap-0.5 rounded bg-green-800/60 px-1 py-0.5 text-[10px] font-medium text-green-200">
-                        <Sparkles size={10} />
-                        新
+                      <span className="flex items-center gap-0.5 rounded bg-asylum-success/30 px-1 py-0.5 text-[10px] font-medium text-green-200">
+                        <Sparkles size={10} />新
+                      </span>
+                    )}
+                    {isRelated && !isNew && (
+                      <span className="flex items-center gap-0.5 rounded bg-asylum-accent/10 px-1 py-0.5 text-[10px] text-red-200/70">
+                        <Link2 size={10} />关联
                       </span>
                     )}
                     <Move size={14} className="mt-1 text-asylum-muted" />
