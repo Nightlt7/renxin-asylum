@@ -33,10 +33,18 @@ jobs:
       - name: Build
         run: npm run build:deploy
 
+      # enhanced 分支：将 dist 内容移入子目录，保留 main 已部署的文件
+      - name: Move to subdirectory (enhanced)
+        if: github.ref == 'refs/heads/enhanced'
+        run: |
+          mkdir -p dist-tmp/renxin-asylum-enhanced
+          cp -r dist/* dist-tmp/renxin-asylum-enhanced/
+          rm -rf dist
+          mv dist-tmp dist
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
-        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/enhanced'
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
-          force_orphan: true
+          force_orphan: ${{ github.ref == 'refs/heads/main' }}
